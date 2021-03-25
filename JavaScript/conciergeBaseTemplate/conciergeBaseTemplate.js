@@ -436,17 +436,32 @@ function _dialogflowResponse(data)
     // of the speakTheText() function:
     // misty.SaveAudio("tts.wav", response.outputAudio, true, true);
 
-    if (intent == "YOUR_INTENT_NAME") 
+    if (intent == "name") 
     {
         misty.Set("textToSpeak", response.queryResult.fulfillmentText, false);
         speakTheText();
         // Do Something
     } 
-    else if (intent == "YOUR_OTHER_INTENT_NAME") 
+    else if (intent == "menu") 
     {
-        misty.Set("textToSpeak", response.queryResult.fulfillmentText, false);
-        speakTheText();
-        // Do Something
+        switch(response.queryResult.parameters.meal) {
+            case "lunch": // If the user asks about lunch
+                misty.Set("textToSpeak", "We are serving tuna sandwiches for lunch", false);
+                speakTheText();
+                break;
+            case "dinner": // If the user asks about dinner
+                misty.Set("textToSpeak", "We are serving pad thai for dinner", false);
+                speakTheText();
+                break;
+            case "breakfast": // If the user asks about breakfast
+                misty.Set("textToSpeak", "We are serving omelets for breakfast", false);
+                speakTheText();
+                break;
+            default:  // If the user asks about the menu in general
+                misty.Set("textToSpeak", "We are serving omelets for breakfast, tuna sandwiches for lunch, and pad thai for dinner", false);
+                speakTheText();
+                break;
+        }
     } 
     else 
     {
